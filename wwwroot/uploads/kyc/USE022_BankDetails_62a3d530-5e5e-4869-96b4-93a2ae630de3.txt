@@ -1,0 +1,4 @@
+Bank: Indian Bank
+Account: 838838939939
+IFSC: IDIB000055
+Holder: Jyothinarayanreddt

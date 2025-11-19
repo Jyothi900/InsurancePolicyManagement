@@ -1,0 +1,4 @@
+Bank: INdian bank
+Account: 6811525577
+IFSC: IDIB000V)557
+Holder: Jyothi

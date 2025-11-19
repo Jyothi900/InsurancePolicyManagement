@@ -1,0 +1,4 @@
+Bank: IndianBank
+Account: 773883883883
+IFSC: IDIB000VO55
+Holder: Hyothi

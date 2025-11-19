@@ -1,0 +1,4 @@
+Bank: Indianbank
+Account: 34538384993
+IFSC: IDIB000V055
+Holder: Jyothi Narayana Reddy

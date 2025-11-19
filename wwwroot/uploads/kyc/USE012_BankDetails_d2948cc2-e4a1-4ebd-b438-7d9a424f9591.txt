@@ -1,0 +1,4 @@
+Bank: Indian bank
+Account: 54494993
+IFSC: IDIB00V444
+Holder: Jyothi

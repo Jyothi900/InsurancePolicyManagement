@@ -1,0 +1,92 @@
+﻿## Ignore build results
+bin/
+obj/
+
+## Ignore user-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio cache files
+.vs/
+
+## Logs
+*.log
+
+## Architecture-specific VS cache
+.vscode/
+
+## ASP.NET Core environment files
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+# keep only:
+# appsettings.json
+
+## Ignore published output
+publish/
+**/publish/
+
+## SQL Server files
+*.mdf
+*.ldf
+
+## Packages
+*.nupkg
+packages/
+
+## Backup & temp files
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+*.cache
+
+## Rider files
+.idea/
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+
+## IIS Express
+/.vs/
+/iisexpress/
+
+## Node modules (if using React/Angular inside solution)
+node_modules/
+
+## Logs & diagnostic
+*.stackdump
+*.dmp
+
+## OS-generated files
+.DS_Store
+Thumbs.db
+
+## Secrets (do NOT commit!)
+secrets.json
+
+## Certificates
+*.pfx
+*.p12
+
+## Generated migrations snapshots
+**/Migrations/*Designer.cs
+
+## HTTP test environment files
+*.http
+
+## JetBrains Rider
+.idea/
+*.iml
+
+## Auto-generated files
+wwwroot/dist
+
