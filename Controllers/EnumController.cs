@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using InsurancePolicyManagement.Enums;
+using InsurancePolicyManagement.Interfaces;
 
 namespace InsurancePolicyManagement.Controllers
 {
@@ -7,14 +7,16 @@ namespace InsurancePolicyManagement.Controllers
     [Route("api/[controller]")]
     public class EnumController : ControllerBase
     {
+        private readonly IEnumService _service;
+
+        public EnumController(IEnumService service)
+        {
+            _service = service;
+        }
         [HttpGet("user-roles")]
         public IActionResult GetUserRoles()
         {
-            var roles = Enum.GetValues<UserRole>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
-            
-            // Cache for 5 minutes
+            var roles = _service.GetUserRoles();
             Response.Headers.Add("Cache-Control", "public, max-age=300");
             return Ok(roles);
         }
@@ -22,11 +24,7 @@ namespace InsurancePolicyManagement.Controllers
         [HttpGet("genders")]
         public IActionResult GetGenders()
         {
-            var genders = Enum.GetValues<Gender>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
-            
-            // Cache for 5 minutes
+            var genders = _service.GetGenders();
             Response.Headers.Add("Cache-Control", "public, max-age=300");
             return Ok(genders);
         }
@@ -34,101 +32,56 @@ namespace InsurancePolicyManagement.Controllers
         [HttpGet("kyc-statuses")]
         public IActionResult GetKYCStatuses()
         {
-            var statuses = Enum.GetValues<KYCStatus>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
+            var statuses = _service.GetKYCStatuses();
             return Ok(statuses);
         }
 
         [HttpGet("statuses")]
         public IActionResult GetStatuses()
         {
-            var statuses = Enum.GetValues<Status>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
+            var statuses = _service.GetStatuses();
             return Ok(statuses);
         }
 
         [HttpGet("policy-types")]
         public IActionResult GetPolicyTypes()
         {
-            var types = Enum.GetValues<PolicyType>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
+            var types = _service.GetPolicyTypes();
             return Ok(types);
         }
 
         [HttpGet("insurance-types")]
         public IActionResult GetInsuranceTypes()
         {
-            var types = Enum.GetValues<InsuranceType>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
+            var types = _service.GetInsuranceTypes();
             return Ok(types);
         }
 
         [HttpGet("document-types")]
         public IActionResult GetDocumentTypes()
         {
-            var types = Enum.GetValues<DocumentType>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
+            var types = _service.GetDocumentTypes();
             return Ok(types);
         }
 
         [HttpGet("payment-methods")]
         public IActionResult GetPaymentMethods()
         {
-            var methods = Enum.GetValues<PaymentMethod>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
+            var methods = _service.GetPaymentMethods();
             return Ok(methods);
         }
 
         [HttpGet("premium-frequencies")]
         public IActionResult GetPremiumFrequencies()
         {
-            var frequencies = Enum.GetValues<PremiumFrequency>()
-                .Select(e => new { value = (int)e, name = e.ToString() })
-                .ToList();
+            var frequencies = _service.GetPremiumFrequencies();
             return Ok(frequencies);
         }
 
         [HttpGet("all-enums")]
         public IActionResult GetAllEnums()
         {
-            var allEnums = new
-            {
-                userRoles = Enum.GetValues<UserRole>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                genders = Enum.GetValues<Gender>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                kycStatuses = Enum.GetValues<KYCStatus>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                statuses = Enum.GetValues<Status>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                policyTypes = Enum.GetValues<PolicyType>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                insuranceTypes = Enum.GetValues<InsuranceType>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                documentTypes = Enum.GetValues<DocumentType>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                paymentMethods = Enum.GetValues<PaymentMethod>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList(),
-                premiumFrequencies = Enum.GetValues<PremiumFrequency>()
-                    .Select(e => new { value = (int)e, name = e.ToString() })
-                    .ToList()
-            };
-            
-          
+            var allEnums = _service.GetAllEnums();
             Response.Headers.Add("Cache-Control", "public, max-age=300");
             return Ok(allEnums);
         }

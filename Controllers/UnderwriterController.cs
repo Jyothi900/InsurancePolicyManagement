@@ -76,7 +76,6 @@ namespace InsurancePolicyManagement.Controllers
         }
 
         [HttpPost("cases/decision")]
-       
         public async Task<ActionResult> ProcessCase([FromBody] CaseDecisionDto decision)
         {
             try
@@ -109,12 +108,8 @@ namespace InsurancePolicyManagement.Controllers
                 if (string.IsNullOrEmpty(underwriterId))
                     return BadRequest("Underwriter ID is required");
                     
-             
                 var documents = await _underwriterService.GetPendingDocumentsByUnderwriterAsync(underwriterId);
-                
-                var docDtos = documents;
-
-                return Ok(docDtos);
+                return Ok(documents);
             }
             catch (Exception)
             {
@@ -296,7 +291,6 @@ namespace InsurancePolicyManagement.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception in UpdateProposalStatus: {ex.Message}");
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
@@ -343,12 +337,7 @@ namespace InsurancePolicyManagement.Controllers
                 if (string.IsNullOrEmpty(status))
                     return BadRequest("Status is required");
                 
-                // Decode URL-encoded proposal ID
                 var decodedProposalId = Uri.UnescapeDataString(proposalId);
-                
-                // Log the request for debugging
-                Console.WriteLine($"UpdateProposalStatus - Original: {proposalId}, Decoded: {decodedProposalId}, Status: {status}, Notes: {notes}");
-                    
                 var result = await _underwriterService.UpdateProposalStatusAsync(decodedProposalId, status, notes);
                 
                 if (result)
@@ -362,7 +351,6 @@ namespace InsurancePolicyManagement.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception in UpdateProposalStatus: {ex.Message}");
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }

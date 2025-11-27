@@ -36,6 +36,9 @@ namespace InsurancePolicyManagement.Extensions
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IQuoteService, QuoteService>();
             services.AddScoped<IUnderwriterService, UnderwriterService>();
+            services.AddScoped<ICustomerJourneyService, CustomerJourneyService>();
+            services.AddScoped<IDashboardService, DashboardService>();
+            services.AddScoped<IEnumService, EnumService>();
           
             services.AddScoped<IToken, TokenService>();
             services.AddScoped<IUser, UserAuthService>();

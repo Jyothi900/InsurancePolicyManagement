@@ -53,17 +53,23 @@ namespace InsurancePolicyManagement.Repository
         public async Task<Proposal> AddAsync(Proposal proposal)
         {
             // Generate ProposalId in repository (data layer)
-            proposal.ProposalId = GenerateProposalId(proposal.UserId);
+            proposal.ProposalId = await GenerateUniqueProposalIdAsync(proposal.UserId);
             _context.Proposals.Add(proposal);
             await _context.SaveChangesAsync();
             return proposal;
         }
 
-        private static string GenerateProposalId(string userId)
+        private async Task<string> GenerateUniqueProposalIdAsync(string userId)
         {
             var year = DateTime.Now.Year;
             var last3Digits = userId.Length >= 3 ? userId.Substring(userId.Length - 3) : userId.PadLeft(3, '0');
-            return $"PROP/{year}/{last3Digits}";
+            
+            // Get count of existing proposals for this user in current year
+            var existingCount = await _context.Proposals
+                .CountAsync(p => p.UserId == userId && p.AppliedDate.Year == year);
+            
+            var sequence = (existingCount + 1).ToString("D3");
+            return $"PROP/{year}/{last3Digits}/{sequence}";
         }
 
         public async Task<Proposal> UpdateAsync(Proposal proposal)

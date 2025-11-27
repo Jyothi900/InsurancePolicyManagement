@@ -9,7 +9,6 @@ namespace InsurancePolicyManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -21,7 +20,7 @@ namespace InsurancePolicyManagement.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]   
+        [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             var users = await _service.GetAllAsync();
@@ -29,7 +28,6 @@ namespace InsurancePolicyManagement.Controllers
         }
 
         [HttpPost]
-      
         public async Task<ActionResult> Create([FromBody] UserRegistrationDto dto)
         {
             if (!ModelState.IsValid)
@@ -42,7 +40,6 @@ namespace InsurancePolicyManagement.Controllers
         }
 
         [HttpGet("email/{email}")]
-     
         public async Task<ActionResult> GetByEmail(string email)
         {
             var user = await _service.GetByEmailAsync(email);
@@ -50,7 +47,6 @@ namespace InsurancePolicyManagement.Controllers
         }
 
         [HttpGet("{id}")]
-       
         public async Task<ActionResult> GetById(string id)
         {
             var user = await _service.GetByIdAsync(id);
@@ -58,7 +54,6 @@ namespace InsurancePolicyManagement.Controllers
         }
 
         [HttpPatch("{id}")]
-      
         public async Task<ActionResult> Update(string id, [FromBody] UserUpdateDto dto)
         {
             if (!ModelState.IsValid)
@@ -73,7 +68,6 @@ namespace InsurancePolicyManagement.Controllers
 
 
         [HttpDelete("{id}")]
-      
         public async Task<ActionResult> Delete(string id)
         {
             var result = await _service.DeleteAsync(id);

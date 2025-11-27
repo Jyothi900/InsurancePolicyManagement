@@ -1,0 +1,4 @@
+Bank: IndianBank
+Account: 8765987689
+IFSC: IDIB000V077
+Holder: jyothi

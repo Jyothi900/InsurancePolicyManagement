@@ -28,31 +28,26 @@ namespace InsurancePolicyManagement.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-        var user = await _userService.GetByUsernameOrEmailAsync(loginDto.Email);
+            var user = await _userService.GetByUsernameOrEmailAsync(loginDto.Email);
 
-        if (user == null)
-            return BadRequest(new { message = "Invalid username or password" });
+            if (user == null)
+                return BadRequest(new { message = "Invalid username or password" });
 
-          
             bool isPasswordValid = false;
             
-          
             if (user.Password.StartsWith("$2a$") || user.Password.StartsWith("$2b$") || user.Password.StartsWith("$2y$"))
             {
                 try
                 {
-                  
                     isPasswordValid = BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password);
                 }
                 catch (BCrypt.Net.SaltParseException)
                 {
-               
                     isPasswordValid = loginDto.Password == user.Password;
                 }
             }
             else
             {
-                
                 isPasswordValid = loginDto.Password == user.Password;
             }
 
@@ -62,12 +57,11 @@ namespace InsurancePolicyManagement.Controllers
             if (!user.IsActive)
                 return BadRequest(new { message = "Account is inactive" });
 
-  
             var tokenString = _tokenService.GenerateToken(user);
 
             return Ok(new
             {
-                token = tokenString,  
+                token = tokenString,
                 id = user.UserId,
                 email = user.Email,
                 role = user.Role

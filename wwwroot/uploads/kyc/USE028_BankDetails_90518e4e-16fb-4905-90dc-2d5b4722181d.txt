@@ -1,0 +1,4 @@
+Bank: IndinaBank
+Account: 6737738939939
+IFSC: IDI000V0666
+Holder: Bhanu

@@ -1,0 +1,4 @@
+Bank: IndianBank
+Account: 67687368773
+IFSC: IJDHDJ8838
+Holder: bhanu

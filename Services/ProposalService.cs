@@ -127,13 +127,15 @@ namespace InsurancePolicyManagement.Services
 
         private static Status DetermineInitialStatus(ProposalCreateDto dto)
         {
-            // Auto-underwriting logic
-            if (dto.IsSmoker || dto.IsDrinker || !string.IsNullOrEmpty(dto.PreExistingConditions))
+            // Auto-underwriting logic - proposals requiring manual review
+            if (dto.IsSmoker || dto.IsDrinker || 
+                (!string.IsNullOrEmpty(dto.PreExistingConditions) && dto.PreExistingConditions != "None"))
                 return Status.UnderReview;
 
             if (dto.SumAssured > 5000000 || dto.AnnualIncome < dto.SumAssured / 10)
                 return Status.UnderReview;
 
+            // Default status for new proposals
             return Status.Applied;
         }
 

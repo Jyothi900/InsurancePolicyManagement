@@ -3,17 +3,17 @@ namespace InsurancePolicyManagement.DTOs
 {
     public class CustomerDashboardRequest
     {
-        public string? UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
     }
 
     public class AgentDashboardRequest
     {
-        public string? AgentId { get; set; }
+        public string AgentId { get; set; } = string.Empty;
     }
 
     public class UnderwriterDashboardRequest
     {
-        public string? UnderwriterId { get; set; }
+        public string UnderwriterId { get; set; } = string.Empty;
     }
 
     public class DashboardData

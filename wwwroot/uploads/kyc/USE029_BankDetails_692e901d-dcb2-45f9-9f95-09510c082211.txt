@@ -1,0 +1,4 @@
+Bank: Indina Bank
+Account: 7839899399003
+IFSC: IBIB000V066
+Holder: Raju

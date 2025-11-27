@@ -71,8 +71,6 @@ namespace InsurancePolicyManagement.Controllers
             }
         }
 
-
-
         [HttpGet("{id}/download-pdf")]
         [Authorize(Roles = "Customer,Agent,Admin")]
         public async Task<ActionResult> DownloadPDF(string id)

@@ -203,8 +203,5 @@ namespace InsurancePolicyManagement.Controllers
                 return StatusCode(500, "Failed to verify document");
             }
         }
-
-
-
     }
 }

@@ -12,12 +12,10 @@ namespace InsurancePolicyManagement.Controllers
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _service;
- 
 
         public PaymentController(IPaymentService service)
         {
             _service = service;
-            
         }
         [HttpGet("history")]
         [Authorize(Roles = "Customer,Agent,Admin")]
@@ -25,24 +23,14 @@ namespace InsurancePolicyManagement.Controllers
         {
             try
             {
-                Console.WriteLine($"GetHistory called with userId: {userId}");
-                
                 if (string.IsNullOrEmpty(userId))
-                {
-                    Console.WriteLine("UserId is null or empty");
                     return BadRequest("User ID is required");
-                }
                 
-                Console.WriteLine("Calling service.GetHistoryAsync...");
                 var history = await _service.GetHistoryAsync(userId);
-                
-                Console.WriteLine($"Service returned {history?.Count() ?? 0} payments");
                 return Ok(history);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetHistory: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return StatusCode(500, $"Failed to retrieve payment history: {ex.Message}");
             }
         }
@@ -79,7 +67,6 @@ namespace InsurancePolicyManagement.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetPendingPayments: {ex.Message}");
                 return StatusCode(500, $"Failed to retrieve pending payments: {ex.Message}");
             }
         }
@@ -98,7 +85,6 @@ namespace InsurancePolicyManagement.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in PayPremium: {ex.Message}");
                 return StatusCode(500, $"Failed to process payment: {ex.Message}");
             }
         }
@@ -109,30 +95,14 @@ namespace InsurancePolicyManagement.Controllers
         {
             try
             {
-                Console.WriteLine($"PayProposal called: proposalId={request.ProposalId}, userId={request.UserId}, paymentMethod={request.PaymentMethod}");
-                
                 if (string.IsNullOrEmpty(request.ProposalId) || string.IsNullOrEmpty(request.UserId) || string.IsNullOrEmpty(request.PaymentMethod))
-                {
-                    Console.WriteLine("Missing required parameters");
                     return BadRequest("Proposal ID, User ID, and Payment Method are required");
-                }
                     
-                Console.WriteLine("Calling service.PayProposalAsync...");
                 var payment = await _service.PayProposalAsync(request.ProposalId, request.UserId, request.PaymentMethod);
-                
-                if (payment == null)
-                {
-                    Console.WriteLine("Service returned null payment");
-                    return BadRequest("Cannot process proposal payment");
-                }
-                
-                Console.WriteLine($"Payment successful: {payment.PaymentId}");
-                return Ok(payment);
+                return payment == null ? BadRequest("Cannot process proposal payment") : Ok(payment);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in PayProposal controller: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return StatusCode(500, $"Failed to process payment: {ex.Message}");
             }
         }
@@ -143,24 +113,14 @@ namespace InsurancePolicyManagement.Controllers
         {
             try
             {
-                Console.WriteLine($"GetHistory called with userId: {request.UserId}");
-                
                 if (string.IsNullOrEmpty(request.UserId))
-                {
-                    Console.WriteLine("UserId is null or empty");
                     return BadRequest("User ID is required");
-                }
                 
-                Console.WriteLine("Calling service.GetHistoryAsync...");
                 var history = await _service.GetHistoryAsync(request.UserId);
-                
-                Console.WriteLine($"Service returned {history?.Count() ?? 0} payments");
                 return Ok(history);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetHistory: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return StatusCode(500, $"Failed to retrieve payment history: {ex.Message}");
             }
         }
@@ -197,7 +157,6 @@ namespace InsurancePolicyManagement.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetPendingPayments: {ex.Message}");
                 return StatusCode(500, $"Failed to retrieve pending payments: {ex.Message}");
             }
         }
@@ -216,7 +175,6 @@ namespace InsurancePolicyManagement.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetIssuedProposals: {ex.Message}");
                 return StatusCode(500, $"Failed to retrieve issued proposals: {ex.Message}");
             }
         }
@@ -271,7 +229,6 @@ namespace InsurancePolicyManagement.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetIssuedProposals: {ex.Message}");
                 return StatusCode(500, $"Failed to retrieve issued proposals: {ex.Message}");
             }
         }

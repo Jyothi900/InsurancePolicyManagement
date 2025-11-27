@@ -146,7 +146,6 @@ namespace InsurancePolicyManagement.Controllers
             }
         }
 
-    
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([FromBody] PolicyProductCreateDto dto)
@@ -268,6 +267,5 @@ namespace InsurancePolicyManagement.Controllers
                 return StatusCode(500, "Failed to retrieve products page data");
             }
         }
-        
     }
 }
